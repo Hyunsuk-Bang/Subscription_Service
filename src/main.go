@@ -1,11 +1,13 @@
 package main
 
 import (
+	"encoding/gob"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
+	"subscribe/data"
 	"sync"
 	"syscall"
 	"time"
@@ -53,6 +55,7 @@ func main() {
 		Wait:     &wg,
 		InfoLog:  infoLog,
 		ErrorLog: errorLog,
+		Models:   data.New(db),
 	}
 	// set ip mail
 
@@ -95,6 +98,9 @@ func (app *Config) shutdown() {
 }
 
 func initSession() *scs.SessionManager {
+	//store information in the session
+	gob.Register(data.User{})
+
 	session := scs.New()
 	session.Store = redisstore.New(initRedis())
 	session.Lifetime = 24 * time.Hour
