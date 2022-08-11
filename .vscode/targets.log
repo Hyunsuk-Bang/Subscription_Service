@@ -6,11 +6,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
- 
-make: *** No rule to make target `all'.  Stop.
 
-
-# Make data base, printed on Thu Aug 11 15:57:20 2022
+# Make data base, printed on Fri Aug 12 01:22:47 2022
 
 # Variables
 
@@ -47,7 +44,7 @@ VSCODE_CWD = /
 # environment
 GOPROXY = https://proxy.golang.org,direct
 # environment
-PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/go/bin:/Users/hyunsukbang/.cargo/bin
+PATH = /opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/usr/local/go/bin:/Users/hyunsukbang/.cargo/bin:/Users/hyunsukbang/go/bin
 # makefile (from `Makefile', line 3)
 REDIS = "127.0.0.1:6379"
 # environment
@@ -79,7 +76,7 @@ HOME = /Users/hyunsukbang
 # default
 MAKEFILEPATH = $(shell /usr/bin/xcode-select -print-path 2>/dev/null || echo /Developer)/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/hyunsukbang/Library/Application Support/Code/CachedData/da76f93349a72022ca4670c1b84860304616aaa2
+VSCODE_CODE_CACHE_PATH = /Users/hyunsukbang/Library/Application Support/Code/CachedData/6d9b74a70ca9c7733b29f0456fd8195364076dda
 # environment
 LOGNAME = hyunsukbang
 # environment
@@ -113,7 +110,7 @@ TMPDIR = /var/folders/5r/sjsqjt8x1ml46j0krqcxxgp80000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/hyunsukbang/Library/Application Support/Code/1.70.0-main.sock
+VSCODE_IPC_HOOK = /Users/hyunsukbang/Library/Application Support/Code/1.70.1-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -123,7 +120,7 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.2265569.2265575
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.2784995.2785001
 # environment
 HOMEBREW_PREFIX = /opt/homebrew
 # automatic
@@ -153,7 +150,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 37150
+VSCODE_PID = 25329
 # variable set hash-table stats:
 # Load=70/1024=7%, Rehash=0, Collisions=3/93=3%
 
@@ -275,6 +272,8 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Aug 11 15:57:20 2022
+# Finished Make data base on Fri Aug 12 01:22:47 2022
 
  
+make: *** No rule to make target `all'.  Stop.
+
