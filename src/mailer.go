@@ -39,7 +39,7 @@ type Message struct {
 
 //Function to listen for messages on the MailerChan
 
-func (m *Mail) sendMail(msg Message, errorChan chan errors) {
+func (m *Mail) sendMail(msg Message, errorChan chan error) {
 	if msg.Template == "" {
 		msg.Template = "mail"
 	}
@@ -97,7 +97,8 @@ func (m *Mail) sendMail(msg Message, errorChan chan errors) {
 }
 
 func (m *Mail) buildHTMLMessage(msg Message) (string, error) {
-	templateToRender := fmt.Sprintf("../templates/%s.html.gohtml", msg.Template)
+	templateToRender := fmt.Sprintf("./templates/%s.html.gohtml", msg.Template)
+	fmt.Println(templateToRender)
 	t, err := template.New("email-html").ParseFiles(templateToRender)
 	if err != nil {
 		return "", err
@@ -134,7 +135,7 @@ func (m *Mail) inlineCSS(s string) (string, error) {
 }
 
 func (m *Mail) buildPlainTextMessage(msg Message) (string, error) {
-	templateToRender := fmt.Sprintf("../templates/%s.plain.gohtml", msg.Template)
+	templateToRender := fmt.Sprintf("./templates/%s.plain.gohtml", msg.Template)
 	t, err := template.New("email-plain").ParseFiles(templateToRender)
 	if err != nil {
 		return "", err
