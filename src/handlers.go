@@ -69,5 +69,14 @@ func (app *Config) PostRegisterPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *Config) ActivateAccount(w http.ResponseWriter, r *http.Request) {
+	// Using Concurrency
+	// Sending email can slow thing s dwown
+	// Therefore, we want to send Email in the background
+	// validate url
 
+	//generate an invoice
+
+	//send an email with attachment
+
+	// send an email with the invoice attatched
 }
