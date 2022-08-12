@@ -89,14 +89,18 @@ func (app *Config) listenForShutdown() {
 	os.Exit(0) // gracefully shutdown
 }
 
-func (app *Config) shutdown() {
+func (app *Config) shutdown() { // gracefully shutdown
 	// perform any cleanup tasks
 	app.InfoLog.Println("run cleanup tasks")
 
 	// block until waitgroup is empty
 	app.Wait.Wait()
+	app.Mailer.DoneChan <- true
 
 	app.InfoLog.Println("closing Channels and shutting down application")
+	close(app.Mailer.MailerChan)
+	close(app.Mailer.ErrorChan)
+	close(app.Mailer.DoneChan)
 }
 
 func initSession() *scs.SessionManager {

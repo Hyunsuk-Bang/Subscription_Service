@@ -100,7 +100,7 @@ func (m *Mail) sendMail(msg Message, errorChan chan error) {
 
 	if len(msg.Attachments) > 0 {
 		for _, x := range msg.Attachments {
-			email.AddAttachment(x)
+			email.AddAttachment(x) //deprecated
 		}
 	}
 
@@ -112,7 +112,7 @@ func (m *Mail) sendMail(msg Message, errorChan chan error) {
 
 func (m *Mail) buildHTMLMessage(msg Message) (string, error) {
 	templateToRender := fmt.Sprintf("./templates/%s.html.gohtml", msg.Template)
-	fmt.Println(templateToRender)
+	//fmt.Println(templateToRender)
 	t, err := template.New("email-html").ParseFiles(templateToRender)
 	if err != nil {
 		return "", err
