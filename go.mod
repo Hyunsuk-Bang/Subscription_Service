@@ -19,9 +19,11 @@ require (
 	github.com/vanng822/go-premailer v1.20.1 // indirect
 	github.com/xhit/go-simple-mail/v2 v2.11.0 // indirect
 	golang.org/x/net v0.0.0-20211112202133-69e39bad7dc2 // indirect
+	golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1 // indirect
 )
 
 require (
+	github.com/bwmarrin/go-alone v0.0.0-20190806015146-742bb55d1631
 	github.com/go-chi/chi v1.5.4
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgio v1.0.0 // indirect
