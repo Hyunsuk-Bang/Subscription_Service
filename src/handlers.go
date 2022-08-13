@@ -2,7 +2,9 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
+	"subscribe/data"
 )
 
 func (app *Config) MainPage(w http.ResponseWriter, r *http.Request) {
@@ -76,6 +78,41 @@ func (app *Config) PostLoginPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *Config) PostRegisterPage(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	if err != nil {
+		app.ErrorLog.Println(err)
+	}
+	// validate data
+
+	// create a user
+	u := data.User{
+		Email:     r.Form.Get("email"),
+		FirstName: r.Form.Get("first-name"),
+		LastName:  r.Form.Get("lasst-name"),
+		Password:  r.Form.Get("password"),
+		Active:    0,
+		IsAdmin:   0,
+	}
+	_, err = u.Insert(u)
+	if err != nil {
+		app.Session.Put(r.Context(), "error", "Unable to create user")
+		http.Redirect(w, r, "/register", http.StatusSeeOther)
+	}
+	// send an activation email
+	url := fmt.Sprintf("http://localhost/activate?email=%s", u.Email)
+	signedURL := GenerateTokenFromString(url) // tamper proof
+	app.InfoLog.Println(signedURL)
+
+	msg := Message{
+		To:       u.Email,
+		Subject:  "ACtivate yoour account",
+		Template: "confirmation_email",
+		Data:     template.HTML(signedURL),
+	}
+
+	app.sendEmail(msg)
+	app.Session.Put(r.Context(), "flash", "confirmation email sent, Check your email")
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 
 }
 
@@ -84,8 +121,32 @@ func (app *Config) ActivateAccount(w http.ResponseWriter, r *http.Request) {
 	// Sending email can slow thing s dwown
 	// Therefore, we want to send Email in the background
 	// validate url
+	url := r.RequestURI
+	testURL := fmt.Sprintf("http://localhost%s", url)
+	okay := VerifyToken(testURL)
 
-	//generate an invoice
+	if !okay {
+		app.Session.Put(r.Context(), "error", "Invalid Token")
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	u, err := app.Models.User.GetByEmail(r.URL.Query().Get("email"))
+	if err != nil {
+		app.Session.Put(r.Context(), "error", "No User found")
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+	u.Active = 1
+	err = u.Update()
+	if err != nil {
+		app.Session.Put(r.Context(), "error", "Unable to Update User")
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	app.Session.Put(r.Context(), "flash", "Account activated. You can now log in")
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 
 	//send an email with attachment
 

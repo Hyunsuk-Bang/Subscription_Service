@@ -17,7 +17,7 @@ func (app *Config) routes() http.Handler {
 	mux.Get("/", app.MainPage)
 	mux.Get("/login", app.LoginPage)
 	mux.Get("/register", app.RegisterPage)
-	mux.Get("/activate-account", app.ActivateAccount)
+	mux.Get("/activate", app.ActivateAccount)
 	mux.Get("/test-email", func(w http.ResponseWriter, r *http.Request) {
 		m := Mail{
 			Domain:      "localhost",
