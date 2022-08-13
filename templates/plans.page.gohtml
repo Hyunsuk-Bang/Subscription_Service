@@ -24,7 +24,7 @@
                                     {{if and ($user.Plan) (eq $user.Plan.ID .ID)}}
                                         <strong>Current Plan</strong>
                                     {{else}}
-                                    <a class="btn btn-primary btn-sm" href="#!" onclick="selectPlan({{.ID}}, {{.PlanName}})">Select</a>
+                                        <a class="btn btn-primary btn-sm" href="#!" onclick="selectPlan({{.ID}}, '{{.PlanName}}')">Select</a>
                                     {{end}}
                                 </td>
                             </tr>
@@ -41,6 +41,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.26/dist/sweetalert2.all.min.js"></script>
     <script>
         function selectPlan(x, plan) {
+        console.log("BANG")
             Swal.fire({
                 title: 'Subscirbe',
                 html: 'Are you sure you want to Subscribe to the ' + plan + '?',
@@ -48,7 +49,7 @@
                 confirmButtonText: 'Subscribe',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '/subscribe?id=' + x
+                    window.location.href = '/members/subscribe?id=' + x
                 }
             })
         }

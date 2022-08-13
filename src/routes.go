@@ -37,10 +37,22 @@ func (app *Config) routes() http.Handler {
 
 		m.sendMail(msg, make(chan error))
 	})
-	mux.Get("/plans", app.ChooseSubscription)
 
 	mux.Get("/logout", app.Logout)
 	mux.Post("/login", app.PostLoginPage)
 	mux.Post("/register", app.PostRegisterPage)
+
+	mux.Mount("/members", app.authRouter())
+	return mux
+}
+
+// router for authenticated Users
+func (app *Config) authRouter() http.Handler {
+	mux := chi.NewRouter()
+	mux.Use(app.Auth)
+
+	mux.Get("/plans", app.ChooseSubscription)
+	mux.Get("/subscribe", app.SubscirbeToPlan)
+
 	return mux
 }
