@@ -37,6 +37,7 @@ func (app *Config) routes() http.Handler {
 
 		m.sendMail(msg, make(chan error))
 	})
+	mux.Get("/plans", app.ChooseSubscription)
 
 	mux.Get("/logout", app.Logout)
 	mux.Post("/login", app.PostLoginPage)
